@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
 from collections import Counter
-
+print("Running auto test for crop recommendation model...\n")
 # load model and encoders
 model = joblib.load('knn_crop_model.pkl')
 soil_encoder = joblib.load('soil_encoder.pkl')

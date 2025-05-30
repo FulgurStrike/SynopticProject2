@@ -9,5 +9,34 @@
   </head>
   <body>
     <h1>Crop Recommendation Page</h1>
+    <form id="cropForm">
+  <input name="soil" placeholder="soil (loamy, clay, sandy)">
+  <input name="sunlight" type="number" placeholder="sunlight (hrs/day)">
+  <input name="season" placeholder="season (summer/winter)">
+  <input name="water_added" type="number" placeholder="additional water (L/week)">
+  <input name="plot_size" type="number" placeholder="plot size (m^2)">
+  <button type="submit">Get Recommendation</button>
+</form>
+
+<div id="result"></div>
+<!-- currently put script here could move to different file in the future -->
+<script> 
+  document.getElementById("cropForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const res = await fetch("/cropRecommendation/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    document.getElementById("result").innerText =
+      "Recommended Crop: " + result.recommended_crop;
+  });
+</script>
+
   </body>
 </html>

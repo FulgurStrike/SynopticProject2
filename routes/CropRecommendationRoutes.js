@@ -4,4 +4,7 @@ const CropRecommendationController = require('../controllers/CropRecommendationC
 
 router.get('/cropRecommendation', CropRecommendationController.renderCropRecommendationPage);
 
+router.post('/cropRecommendation/predict', CropRecommendationController.getPrediction);
+
+
 module.exports = router;

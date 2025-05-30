@@ -16,6 +16,8 @@ dotenv.config(); // Load environment variables from .env
 class App {
   constructor() {
     this.jsonParser = bodyParser.json;
+
+
     this.PORT = process.env.PORT || 3000;
     this.app = express();
   }
@@ -39,6 +41,7 @@ class App {
     this.app.set('view engine', 'ejs');
     this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.urlencoded({extended: true}));
+    this.app.use(bodyParser.json());
     this.app.use(cookieParser());
 
     // Passes the login status to the views

@@ -9,6 +9,7 @@ const flash = require('connect-flash')
 
 const cropPageRoutes = require('./routes/CropPageRoutes');
 const cropRecommendationRoutes = require('./routes/CropRecommendationRoutes');
+const shopRoutes = require('./routes/ShopRoutes');
 
 const connectDB = require('./config/database');
 dotenv.config(); // Load environment variables from .env
@@ -74,6 +75,7 @@ class App {
     // routes
     this.app.use(cropPageRoutes);
     this.app.use(cropRecommendationRoutes);
+    this.app.use(shopRoutes);
 
 
     this.app.listen(this.PORT, () => {

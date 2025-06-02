@@ -3,40 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Crop Recommendation</title>
     <link rel="stylesheet" href="/output.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Crop Recommendation Page</h1>
-    <form id="cropForm">
-  <input name="soil" placeholder="soil (loamy, clay, sandy)">
-  <input name="sunlight" type="number" placeholder="sunlight (hrs/day)">
-  <input name="season" placeholder="season (summer/winter)">
-  <input name="water_added" type="number" placeholder="additional water (L/week)">
-  <input name="plot_size" type="number" placeholder="plot size (m^2)">
-  <button type="submit">Get Recommendation</button>
-</form>
+  <body class="bg-gradient-to-b from-cyan-200 to-green-200 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-green-100 border border-black rounded-xl p-4 w-[320px] shadow-lg">
+      <div class="flex justify-between items-center mb-4">
+        <div class="w-10 h-10 rounded-full border border-black bg-cover bg-center" style="background-image: url('/user-icon.png')"></div>
+      </div>
+      <div class="text-center mb-4">
+        <h1 class="text-lg font-bold border border-black bg-yellow-200 p-2 mb-2">Recommended crop calculator</h1>
+        <p class="border border-black bg-yellow-100 p-1 text-sm">Fill in the form below and reveal the recommended crop for you!</p>
+      </div>
 
-<div id="result"></div>
-<!-- currently put script here could move to different file in the future -->
-<script> 
-  document.getElementById("cropForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+      <form id="cropForm" class="space-y-2 text-sm border border-black p-3 bg-green-50">
+        <div>
+          <label>Season:</label>
+          <select name="season" class="w-full border border-black rounded p-1">
+            <option value="summer">Summer</option>
+            <option value="winter">Winter</option>
+          </select>
+        </div>
+        <div>
+          <label>Soil Type:</label>
+          <select name="soil" class="w-full border border-black rounded p-1">
+            <option value="loamy">Loamy</option>
+            <option value="sandy">Sandy</option>
+            <option value="clay">Clay</option>
+          </select>
+        </div>
+        <div>
+          <label>Sunlight Hours:</label>
+          <select name="sunlight" class="w-full border border-black rounded p-1">
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </div>
+        <div>
+          <label>Water available (L/week):</label>
+          <select name="water_added" class="w-full border border-black rounded p-1">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+          </select>
+        </div>
+        <div>
+          <label>Size of Plot (m²):</label>
+          <select name="plot_size" class="w-full border border-black rounded p-1">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+        <button type="submit" class="bg-green-300 border border-black rounded p-2 w-full font-semibold mt-2">
+          Submit form and Reveal
+        </button>
+      </form>
 
-    const res = await fetch("/cropRecommendation/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+      <div class="border border-black mt-4 p-3 bg-green-50 text-sm">
+        <h2 class="font-bold mb-2">Suggested Crops:</h2>
+        <ol id="resultList" class="space-y-1">
+          <li>1. _____ </li>
+          <li>2. _____ </li>
+          <li>3. _____ </li>
+        </ol>
+      </div>
 
-    const result = await res.json();
-    document.getElementById("result").innerText =
-      "Recommended Crop: " + result.recommended_crop;
-  });
-</script>
+      <script>
+        document.getElementById("cropForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const data = Object.fromEntries(formData.entries());
 
+          const res = await fetch("/cropRecommendation/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          const result = await res.json();
+          const top3 = result.top_3;
+
+          const resultList = document.getElementById("resultList");
+          resultList.innerHTML = top3.map((c, i) => `
+            <li>${i + 1}. ${c.crop}</li>
+          `).join('');
+        });
+      </script>
+    </div>
   </body>
 </html>

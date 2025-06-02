@@ -1,4 +1,5 @@
 const path = require('path');
+const ShopCrop = require('../models/ShopCropModel')
 
 // View rendering content
 const cropShopContent = {
@@ -11,7 +12,7 @@ exports.renderCropShopPage = (req, res) => {
 };
 
 // In-memory database
-let database = ['Carrots', 'Tomatoes', 'Lettuce'];
+//let database = ['Carrots', 'Tomatoes', 'Lettuce'];
 let lastUpdated = new Date();
 const ADMIN_KEY = 'adminkey123';
 
@@ -23,18 +24,20 @@ const formatTimeDiff = (lastTime) => {
 };
 
 // API controller: get all shop data
-exports.getShopData = (req, res) => {
+exports.getShopData = async (req, res) => {
   const isAdmin = req.query.key === ADMIN_KEY;
-
+  const crops = await ShopCrop.find().lean()
   res.json({
-    items: database,
+    //items: database,
+    items: crops.map(c => ({name: c.name, quantity: c.quantity})),
     lastUpdated: formatTimeDiff(lastUpdated),
     admin: isAdmin
   });
+
 };
 
 // API controller: add item (admin only)
-exports.addItem = (req, res) => {
+exports.addItem = async (req, res) => {
   const key = req.query.key;
   const { item } = req.body;
 
@@ -46,14 +49,15 @@ exports.addItem = (req, res) => {
     return res.status(400).json({ error: "Invalid item" });
   }
 
-  database.push(item);
+  //database.push(item);
+  await ShopCrop.create({name: item});
   lastUpdated = new Date();
 
   res.sendStatus(200);
 };
 
 // API controller: remove item by index (admin only)
-exports.removeItem = (req, res) => {
+exports.removeItem = async (req, res) => {
   const key = req.query.key;
   const { index } = req.body;
 
@@ -61,11 +65,14 @@ exports.removeItem = (req, res) => {
     return res.status(403).json({ error: "Forbidden" });
   }
 
-  if (typeof index !== 'number' || index < 0 || index >= database.length) {
+  const crops = await ShopCrop.find().lean();
+  if (typeof index !== 'number' || index < 0 || index >= crops.length) {
     return res.status(400).json({ error: "Invalid index" });
   }
 
-  database.splice(index, 1);
+  //database.splice(index, 1);
+  const cropToRemove = crops[index];
+  await ShopCrop.deleteOne({_id: cropToRemove._id});
   lastUpdated = new Date();
 
   res.sendStatus(200);

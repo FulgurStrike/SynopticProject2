@@ -19,7 +19,7 @@
         <!-- <div class="bg-green-300 w-16 h-16 mr-4"></div> -->
         <div>
           <h2 class="font-semibold text-lg">The Milky Millard</h2>
-          <p class="text-sm text-gray-600">Hugh Street, Poop Avenue, meow meow, SUCC P3N1S</p>
+          <p class="text-sm text-gray-600">Hugh Street, High Avenue, Location, ZZZZ ZZZ</p>
         </div>
       </div>
       <p class="text-sm text-gray-500">
@@ -47,7 +47,7 @@
         const div = document.createElement('div');
         div.className = 'flex justify-between items-center border-b py-1';
         div.innerHTML =
-          `<span>${item}</span>` +
+          `<span>${item.name} <span class="text-xs text-gray-500">(Qty: ${item.quantity})</span></span>` +
           (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500">Remove</button>` : '');
         dbDisplay.appendChild(div);
       });

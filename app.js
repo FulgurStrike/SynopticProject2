@@ -11,6 +11,7 @@ const cropPageRoutes = require('./routes/CropPageRoutes');
 const cropRecommendationRoutes = require('./routes/CropRecommendationRoutes');
 const indexRoutes = require('./routes/IndexRoutes');
 const farmingRoutes = require('./routes/farmingRoutes');
+const shopRoutes = require('./routes/ShopRoutes');
 
 const connectDB = require('./config/database');
 dotenv.config(); // Load environment variables from .env
@@ -78,6 +79,7 @@ class App {
     this.app.use(cropRecommendationRoutes);
     this.app.use(indexRoutes);
     this.app.use(farmingRoutes);
+    this.app.use(shopRoutes);
 
 
     this.app.listen(this.PORT, () => {

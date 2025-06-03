@@ -19,8 +19,8 @@ features = ["soil_enc", "sunlight", "temperature", "humidity", "water_per_m2"]
 X = df[features]
 y = df["crop_enc"]
 
-# Train KNN model (k=25)
-model = KNeighborsClassifier(n_neighbors=50)
+
+model = KNeighborsClassifier(n_neighbors=50, algorithm='kd_tree')
 model.fit(X, y)
 
 # Save model and encoders

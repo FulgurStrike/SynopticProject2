@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= title %></title>
+</head>
+<body class="bg-gray-200 flex justify-center items-center h-screen">
+  <div class="bg-cyan-800 p-4 rounded-xl w-96 shadow-lg">
+    <div class="flex justify-between items-center bg-white rounded p-2">
+      <input class="outline-none w-full" placeholder="Search..." />
+      <img src="/cat-call.gif" alt="Profile" class="w-8 h-8 rounded-full ml-2" />
+    </div>
+
+    <div class="bg-white mt-4 p-4 rounded space-y-2">
+      <div class="flex items-start">
+              <img src="/cat-call.gif" alt="Profile" class="w-16 h-16 mr-4" />
+        <!-- <div class="bg-green-300 w-16 h-16 mr-4"></div> -->
+        <div>
+          <h2 class="font-semibold text-lg">The Milky Millard</h2>
+          <p class="text-sm text-gray-600">Hugh Street, Avenue, Location, ZZZZ ZZZ</p>
+        </div>
+      </div>
+      <p class="text-sm text-gray-500">
+        Last Updated: <span id="last-updated">Loading...</span>
+      </p>
+      <div class="border p-4 h-64 overflow-auto" id="database-display">
+        <p class="text-center text-gray-400">Loading data...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function fetchData() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const key = urlParams.get('key');
+      const res = await fetch(`/api/shopData${key ? '?key=' + key : ''}`);
+      const data = await res.json();
+
+      document.getElementById('last-updated').innerText = data.lastUpdated;
+
+      const dbDisplay = document.getElementById('database-display');
+      dbDisplay.innerHTML = '';
+
+      data.items.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center border-b py-1';
+        div.innerHTML =
+          `<span>${item.name} <span class="text-xs text-gray-500">(Qty: ${
+            data.admin
+              ? `<input type="number" min="0" value="${item.quantity}" style="width:50px" onchange="updateQuantity(${index}, this.value)" />`
+              : item.quantity
+          })</span></span>` +
+          (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500 ml-2">Remove</button>` : '');
+        dbDisplay.appendChild(div);
+      });
+
+      if (data.admin) {
+        const input = document.createElement('input');
+        input.placeholder = 'Add item';
+        input.className = 'mt-2 p-1 border w-full';
+        input.onkeydown = async (e) => {
+          if (e.key === 'Enter') {
+            await fetch('/api/addItem?key=' + key, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ item: input.value })
+            });
+            input.value = '';
+            fetchData();
+          }
+        };
+        dbDisplay.appendChild(input);
+      }
+    }
+
+    async function removeItem(index) {
+      const key = new URLSearchParams(window.location.search).get('key');
+      await fetch('/api/removeItem?key=' + key, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index })
+      });
+      fetchData();
+    }
+
+    async function updateQuantity(index, quantity) {
+      const key = new URLSearchParams(window.location.search).get('key');
+      await fetch('/api/updateQuantity?key=' + key, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index, quantity: Number(quantity) })
+      });
+      fetchData();
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>

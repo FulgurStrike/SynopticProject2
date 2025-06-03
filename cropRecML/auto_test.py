@@ -1,4 +1,5 @@
 import joblib
+import time 
 import pandas as pd
 from collections import Counter
 print("Running auto test for crop recommendation model...\n")
@@ -24,7 +25,7 @@ sample_inputs = [
     {"season": "winter", "soil": "loamy", "sunlight": 7, "water_added": 8, "plot_size": 4},
     {"season": "summer", "soil": "sandy", "sunlight": 6, "water_added": 15, "plot_size": 3}
 ]
-
+startTime = time.time()
 # process and predict for each input
 for idx, farm in enumerate(sample_inputs, 1):
     print(f"\ntest case #{idx}")
@@ -68,3 +69,6 @@ for idx, farm in enumerate(sample_inputs, 1):
     for i, (crop, count) in enumerate(top_3, 1):
         if count > 15:
             print(f"{i}. {crop} ({count} votes)")
+
+endTime = time.time()
+print(f"\n✅ Auto test completed in {endTime - startTime:.2f} seconds.")

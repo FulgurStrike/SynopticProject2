@@ -38,6 +38,7 @@ exports.getShopData = async (req, res) => {
 
 // API controller: add item (admin only)
 exports.addItem = async (req, res) => {
+  
   const key = req.query.key;
   const { item } = req.body;
 
@@ -45,12 +46,38 @@ exports.addItem = async (req, res) => {
     return res.status(403).json({ error: "Forbidden" });
   }
 
+  
+
   if (!item || typeof item !== 'string') {
     return res.status(400).json({ error: "Invalid item" });
   }
 
   //database.push(item);
-  await ShopCrop.create({name: item});
+  await ShopCrop.create({name: item, quantity: 1});
+  lastUpdated = new Date();
+
+  res.sendStatus(200);
+};
+
+exports.updateQuantity = async (req, res) => {
+  const key = req.query.key;
+  const { index, quantity } = req.body;
+
+  if (key !== ADMIN_KEY) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  if (typeof index !== 'number' || typeof quantity !== 'number' || quantity < 0) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+
+  const crops = await ShopCrop.find().lean();
+  if (index < 0 || index >= crops.length) {
+    return res.status(400).json({ error: "Invalid index" });
+  }
+
+  const cropToUpdate = crops[index];
+  await ShopCrop.updateOne({ _id: cropToUpdate._id }, { $set: { quantity } });
   lastUpdated = new Date();
 
   res.sendStatus(200);

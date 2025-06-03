@@ -81,6 +81,9 @@ class App {
     this.app.use(farmingRoutes);
     this.app.use(shopRoutes);
 
+    this.app.use(express.static(path.join(__dirname, 'public')));
+    
+
 
     this.app.listen(this.PORT, () => {
       console.log(`Now listening on port ${this.PORT}`);

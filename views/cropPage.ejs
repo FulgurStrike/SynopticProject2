@@ -1,37 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farming UI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-[#f5f5f0] flex justify-center items-center min-h-screen"> 
 
-      <!-- Placeholder Cards -->
-      <!-- Crop Cards Container -->
-      <div
-          class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto"
-          >
-          <% crops.forEach(crop => { %>
-          <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
-            <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
-              🌱
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farming UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#f5f5f0] flex justify-center items-center min-h-screen">
+  <div class="bg-cyan-800 p-4 rounded-xl w-96 shadow-lg">
+    <div class="flex justify-between items-center bg-white rounded p-2">
+      <input class="outline-none w-full" placeholder="Search..." />
+      <img src="/user-icon.png" alt="Profile" class="w-8 h-8 rounded-full ml-2" />
+    </div>
+    <div class="flex justify-center gap-[50px] mb-4 mt-4">
+      <select name="sort" class="p-2 rounded">
+        <option>Relevance</option>
+        <option>Option 2</option>
+      </select>
+      <select name="filter" class="p-2 rounded">
+        <option value="all">All</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+      </select>
+    </div>
+    <!-- Placeholder Cards -->
+    <!-- Crop Cards Container -->
+    <div class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto">
+      <% crops.forEach(crop=> { %>
+        <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
+          <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
+            🌱
+          </div>
+          <div class="flex-1 space-y-1 text-sm text-[#3a2c24]">
+            <div><strong>Name:</strong>
+              <%= crop.name %>
             </div>
-            <div class="flex-1 space-y-1 text-sm text-[#3a2c24]">
-              <div><strong>Name:</strong> <%= crop.name %></div>
-              <div><strong>Watering:</strong> <%= crop.watering %></div>
-              <div><strong>Cycle:</strong> <%= crop.cycle %></div>
-              <div><strong>Sun:</strong> <%= crop.sun %></div>
-              <div><strong>Drought Tolerance:</strong> <%= crop.droughtTolerance %></div>
+            <div><strong>Watering:</strong>
+              <%= crop.watering %>
+            </div>
+            <div><strong>Cycle:</strong>
+              <%= crop.cycle %>
+            </div>
+            <div><strong>Sun:</strong>
+              <%= crop.sun %>
+            </div>
+            <div><strong>Drought Tolerance:</strong>
+              <%= crop.droughtTolerance %>
             </div>
           </div>
-          <% }) %>
-      </div>
-
-      </div>
+        </div>
+        <% }) %>
     </div>
-  </body>
+  </div>
+</body>
 </html>
-

@@ -97,6 +97,24 @@ crops = [
         "temp": (15, 28),
         "humidity": (50, 80)
     },
+    {
+        "name": "lentils",
+        "seasons": ["winter"],
+        "soil": ["loamy", "sandy"],
+        "sunlight": (6, 8),
+        "water_mm": (10, 25),
+        "temp": (10, 25),
+        "humidity": (30, 60)
+    },
+    {
+        "name": "spring onions",
+        "seasons": ["winter", "summer"],
+        "soil": ["loamy", "sandy"],
+        "sunlight": (5, 7),
+        "water_mm": (20, 30),
+        "temp": (12, 28),
+        "humidity": (50, 75)
+    },
 ]
 
 # ---------------------------

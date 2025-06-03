@@ -19,7 +19,7 @@
         <!-- <div class="bg-green-300 w-16 h-16 mr-4"></div> -->
         <div>
           <h2 class="font-semibold text-lg">The Milky Millard</h2>
-          <p class="text-sm text-gray-600">Hugh Street, High Avenue, Location, ZZZZ ZZZ</p>
+          <p class="text-sm text-gray-600">Hugh Street, Avenue, Location, ZZZZ ZZZ</p>
         </div>
       </div>
       <p class="text-sm text-gray-500">
@@ -47,8 +47,12 @@
         const div = document.createElement('div');
         div.className = 'flex justify-between items-center border-b py-1';
         div.innerHTML =
-          `<span>${item.name} <span class="text-xs text-gray-500">(Qty: ${item.quantity})</span></span>` +
-          (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500">Remove</button>` : '');
+          `<span>${item.name} <span class="text-xs text-gray-500">(Qty: ${
+            data.admin
+              ? `<input type="number" min="0" value="${item.quantity}" style="width:50px" onchange="updateQuantity(${index}, this.value)" />`
+              : item.quantity
+          })</span></span>` +
+          (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500 ml-2">Remove</button>` : '');
         dbDisplay.appendChild(div);
       });
 
@@ -77,6 +81,16 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ index })
+      });
+      fetchData();
+    }
+
+    async function updateQuantity(index, quantity) {
+      const key = new URLSearchParams(window.location.search).get('key');
+      await fetch('/api/updateQuantity?key=' + key, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index, quantity: Number(quantity) })
       });
       fetchData();
     }

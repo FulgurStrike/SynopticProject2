@@ -14,7 +14,7 @@ A website which aims to educate people in Makers Valley on how to start their ow
 **PLEASE ADD ANYTHING I HAVE MISSED**
 
 
-## HOW TO SET UP VIRTUAL ENVIRONMENT FOR PYTHON RECOMMENDATION ALGORITHM
+### HOW TO SET UP VIRTUAL ENVIRONMENT FOR PYTHON RECOMMENDATION ALGORITHM
 
 **check if python is installed**
 ```bash
@@ -38,11 +38,11 @@ venv\Scripts\activate
     run this line then try again:
     Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
-# mac/linux:
+### mac/linux:
 ```bash
 source venv/bin/activate
 ```
-# install dependencies
+### install dependencies
 ```bash
 pip install -r requirements.txt
 ```

@@ -1,34 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <title><%= title %></title>
 </head>
-<body class="bg-gray-200 flex justify-center items-center h-screen">
-  <div class="bg-cyan-800 p-4 rounded-xl w-96 shadow-lg">
-    <div class="flex justify-between items-center bg-white rounded p-2">
-      <input class="outline-none w-full" placeholder="Search..." />
-      <img src="/cat-call.gif" alt="Profile" class="w-8 h-8 rounded-full ml-2" />
+
+<body class="bg-gradient-to-br from-blue-50 to-cyan-100 min-h-screen flex justify-center items-start py-8 px-4">
+
+  <div class="bg-white w-full max-w-md p-5 rounded-2xl shadow-xl border border-cyan-200 space-y-4">
+
+    <!-- Search Bar -->
+    <div class="flex items-center bg-cyan-50 border border-cyan-200 rounded-xl px-3 py-2 shadow-sm">
+      <input class="outline-none bg-transparent w-full text-sm text-gray-700 placeholder-gray-400" placeholder="Search..." />
+      <img src="/cat-call.gif" alt="Profile" class="w-8 h-8 rounded-full ml-3 border border-cyan-300" />
     </div>
 
-    <div class="bg-white mt-4 p-4 rounded space-y-2">
+    <!-- Shop Info -->
+    <div class="bg-cyan-50 p-4 rounded-xl shadow-inner border border-cyan-200 space-y-3">
+
       <div class="flex items-start">
-              <img src="/cat-call.gif" alt="Profile" class="w-16 h-16 mr-4" />
-        <!-- <div class="bg-green-300 w-16 h-16 mr-4"></div> -->
+        <img src="/cat-call.gif" alt="Profile" class="w-16 h-16 mr-3 rounded-lg shadow-md border border-cyan-300" />
         <div>
-          <h2 class="font-semibold text-lg">The Milky Millard</h2>
-          <p class="text-sm text-gray-600">Hugh Street, Avenue, Location, ZZZZ ZZZ</p>
+          <h2 class="font-bold text-cyan-900 text-lg">The Milky Millard</h2>
+          <p class="text-sm text-gray-600">Hugh Street, inne Avenue, Location, ZZZZ ZZZ</p>
         </div>
       </div>
-      <p class="text-sm text-gray-500">
-        Last Updated: <span id="last-updated">Loading...</span>
+
+      <p class="text-xs text-gray-500">
+        Last Updated: <span id="last-updated" class="font-medium text-cyan-700">Loading...</span>
       </p>
-      <div class="border p-4 h-64 overflow-auto" id="database-display">
+
+      <!-- Inventory Display -->
+      <div class="border border-cyan-200 p-3 rounded-md bg-white max-h-60 overflow-y-auto" id="database-display">
         <p class="text-center text-gray-400">Loading data...</p>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -45,21 +56,21 @@
 
       data.items.forEach((item, index) => {
         const div = document.createElement('div');
-        div.className = 'flex justify-between items-center border-b py-1';
+        div.className = 'flex justify-between items-center border-b py-2 text-sm text-gray-800';
         div.innerHTML =
-          `<span>${item.name} <span class="text-xs text-gray-500">(Qty: ${
+          `<span>${item.name} <span class="text-xs text-gray-400">(Qty: ${
             data.admin
               ? `<input type="number" min="0" value="${item.quantity}" style="width:50px" onchange="updateQuantity(${index}, this.value)" />`
               : item.quantity
           })</span></span>` +
-          (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500 ml-2">Remove</button>` : '');
+          (data.admin ? `<button onclick="removeItem(${index})" class="text-red-500 text-xs hover:underline ml-2">Remove</button>` : '');
         dbDisplay.appendChild(div);
       });
 
       if (data.admin) {
         const input = document.createElement('input');
         input.placeholder = 'Add item';
-        input.className = 'mt-2 p-1 border w-full';
+        input.className = 'mt-3 p-2 border border-cyan-300 rounded w-full text-sm';
         input.onkeydown = async (e) => {
           if (e.key === 'Enter') {
             await fetch('/api/addItem?key=' + key, {
@@ -86,16 +97,20 @@
     }
 
     async function updateQuantity(index, quantity) {
+      quantity = Number(quantity);
+      if (isNaN(quantity) || quantity < 0) return;
       const key = new URLSearchParams(window.location.search).get('key');
       await fetch('/api/updateQuantity?key=' + key, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ index, quantity: Number(quantity) })
+        body: JSON.stringify({ index, quantity })
       });
       fetchData();
     }
 
     fetchData();
   </script>
+
 </body>
+
 </html>

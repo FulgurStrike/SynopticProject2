@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 async function getWeatherData(){
-  const response = await fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lorentzville?unitGroup=uk&key=YAR3JR9E9LY9WG2DMEGE8XY66&contentType=json");
+  const response = await fetch(process.env.API_KEY);
    
   if (!response.ok) {
     throw new Error("Error retrieving weather data");

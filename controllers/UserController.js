@@ -23,12 +23,12 @@ exports.registerUser = async (req, res) => {
 
     try {
 
-        const existingUser = await user.findOne({ email });
+        const existingUser = await UserModel.findOne({ email });
 
         if(existingUser){
             console.log("duplicate email :",email)
             signupContent.errorMessage="email already in use";
-            res.render('signup',signupContent)
+            return res.render('signupPage',signupContent)
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,23 +47,15 @@ exports.registerUser = async (req, res) => {
 
         let errorMessage = "something went wrong. Please try again.";
 
-        if(err.code == 11000 & err.keyPattern?.email){
+        if(err.code == 11000 && err.keyPattern?.email){
             errorMessage ="Email is already in use. Please try another"
         }
 
         console.log("Error:", errorMessage);
         console.log("Form data:", req.body);
 
-        return res.render('signup', {
-            title: "Sign Up",
-            formHeaderText: "Sign Up",
-            firstNameLabel: "First Name",
-            lastNameLabel: "Last Name",
-            emailLabel: "Email",
-            passwordLabel: "Password",
-            submitButtonText: "Create Account",
-            alreadyHaveAccount: "Already have an account?",
-            loginLinkText: "Login",
+        return res.render('signupPage', {
+            ...signupContent,
             errorMessage,
             formData: req.body // send the posted form data back to fill fields
         });

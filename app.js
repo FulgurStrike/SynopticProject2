@@ -87,6 +87,9 @@ class App {
     this.app.use(signupRoutes);
     this.app.use(loginRoutes);
 
+    this.app.use(express.static(path.join(__dirname, 'public')));
+    
+
 
     this.app.listen(this.PORT, () => {
       console.log(`Now listening on port ${this.PORT}`);

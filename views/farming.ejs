@@ -6,10 +6,13 @@
     <title>Farming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./CSS/Dropdown.css">
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
         
         .hero-card {
@@ -48,7 +51,7 @@
             <div class="relative">
                 <div class="flex items-center space-x-2 cursor-pointer"> 
                     <img src="user-icon.png" alt="User Profile" class="w-10 h-10 rounded-full border-2 border-sky-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </div>
@@ -57,14 +60,34 @@
 
         <!-- Main Content Cards -->
         <main class="space-y-6">
-            <!-- Farming Card -->
-            <a href="/cropPage" class="block rounded-xl shadow-lg border-2 border-black hover:shadow-xl transition-shadow duration-300 hero-card text-white p-8 min-h-[350px] sm:min-h-[220px] flex flex-col justify-end" style="background-image: url('database2.png')">
+
+            <!-- Database Card -->
+            <a href="/Crop" class="block rounded-xl shadow-lg border-2 border-black hover:shadow-xl transition-shadow duration-300 hero-card text-white p-8 min-h-[350px] sm:min-h-[220px] flex flex-col justify-end" style="background-image: url('database2.png')">
+
                 <h2 class="text-4xl sm:text-5xl font-bold mb-1">Database</h2>
                 <p class="text-lg sm:text-xl">Find crops and their growing conditions</p>
             </a>
 
-            <!-- Trading Card -->
+
+            <!-- Recommendations Card -->
+
             <a href="/cropRecommendation" class="block rounded-xl shadow-lg border-2 border-black hover:shadow-xl transition-shadow duration-300 hero-card text-white p-8 min-h-[350px] sm:min-h-[220px] flex flex-col justify-end" style="background-image: url('Recommendations2.png');">
                 <h2 class="text-4xl sm:text-5xl font-bold mb-1">Recommendations</h2>
                 <p class="text-lg sm:text-xl">Find the perfect crop for you</p>
             </a>
+            </main>
+    </div>
+    <div id="fullscreenMenu">
+        <button id="closeMenuButton" aria-label="Close menu">
+            &times; </button>
+        <nav class="flex flex-col items-center">
+            <a href="/" class="menu-item">Back to home</a>
+            <a href="/login" class="menu-item">Login</a>
+            <a href="/signUp" class="menu-item">Sign-up</a>
+            <a href="#" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
+        </nav>
+    </div>
+
+    <script src="./Scripts/Dropdown.js"></script>
+</body>
+</html>

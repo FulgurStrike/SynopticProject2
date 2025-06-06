@@ -23,28 +23,25 @@ const loginContent = {
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
-     if (!email || !password) {
-        return res.render('login', {
-            ...loginContent,
-            invalidCredentials: "Username and password required"
-          });
-        }
+    if (!email || !password) {
+       req.flash('error', 'Email and password are required');
+       req.flash('formData', req.body);
+       return res.redirect('/login'); 
+    }
 
     try {
         const user = await User.findOne({ email });
         console.log(user);
         if (user === null) {
-            return res.render('login', {
-                ...loginContent,
-                invalidCredentials: "Wrong username or password"
-              });
-        }else{
+            req.flash('error', 'Incorrect email or password');
+            req.flash('formData', req.body);
+            return res.redirect('/login');
+        } else {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.render('login', {
-                ...loginContent,
-                invalidCredentials: "Wrong username or password"
-              });
+            req.flash('error', 'Incorrect email or password');
+            req.flash('formData', req.body);
+            return res.redirect('/login');
         }
         // Create JWT token with user info
         const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_TOKEN, { expiresIn: '5h' });       
@@ -60,7 +57,8 @@ exports.login = async (req, res) => {
     }
     } catch (err) {
         console.error(err);
-        return res.send(err.message);
+        req.flash('error', 'Something went wrong, please try again')
+        return res.redirect('/login');
     }
 };
 
@@ -95,6 +93,6 @@ exports.authenticateUser = (req, res, next) => {
 exports.renderLoginPage = (req, res) => {
     return res.render('loginPage', {
         ...loginContent,
-        invalidCredentials: ""
+        formData: req.flash('formData')[0] || {}
     })
 };

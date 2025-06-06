@@ -28,13 +28,6 @@ exports.registerUser = async (req, res) => {
             req.flash('error', 'Email already in use');
             req.flash('formData', req.body);
             return res.redirect('/signup');
-            /*
-            return res.render('signupPage', {
-                ...signupContent,
-                errorMessage: "Email already in use",
-                formData: req.body
-            })
-            */
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -62,13 +55,6 @@ exports.registerUser = async (req, res) => {
         req.flash('error', errorMessage);
         req.flash('formData', req.body);
         return res.redirect('/signup');
-        /*
-        return res.render('signupPage', {
-            ...signupContent,
-            errorMessage,
-            formData: req.body // send the posted form data back to fill fields
-        });
-        */
     }
 };
 

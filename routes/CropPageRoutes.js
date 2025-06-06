@@ -5,5 +5,4 @@ const CropDatabaseController = require('../controllers/CropDatabaseController');
 router.get("/cropPage", CropDatabaseController.renderCropPage);
 router.get("/cropItemPage/:id", CropDatabaseController.renderCropItemPage);
 
-
 module.exports = router;

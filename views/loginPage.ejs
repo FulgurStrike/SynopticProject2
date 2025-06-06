@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+      <% if (errorMessages.length > 0) { %>
+        <div class="mb-4 text-red-700 bg-red-100 border border-red-400 rounded p-3 text-sm text-center">
+          <%= errorMessages[0] %>
+        </div>
+      <% } %>
+
+      <% if (successMessages.length > 0) { %>
+        <div class="mb-4 text-green-700 bg-green-100 border border-green-400 rounded p-3 text-sm text-center">
+          <%= successMessages[0] %>
+        </div>
+      <% } %>
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-800"><%= formHeaderText %></h2>
+      <form action="/login" method="POST" class="space-y-4">
+        
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"><%= email %></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autofocus
+            placeholder="you@example.com"
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-lime-700 focus:border-lime-700"
+          />
+        </div>
+
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700"><%= password %></label>
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="********"
+              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md pr-10 focus:outline-none focus:ring-1 focus:ring-lime-700 focus:border-lime-700"
+            />
+            <button
+              type="button"
+              id="togglePassword"
+              class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-lime-700 focus:outline-none"
+            >
+              <!-- Eye Icon -->
+              <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <!-- Eye-off Icon -->
+              <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.956 9.956 0 012.236-3.528m3.323-2.377A9.953 9.953 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.978 9.978 0 01-4.422 5.337M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 3l18 18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button
+            type="submit"
+            class="w-full bg-lime-600 text-white py-2 px-4 rounded-md hover:bg-lime-800 transition duration-200"
+          >
+            <%= loginButton %>
+          </button>
+        </div>
+      </form>
+
+      <p class="mt-4 text-center text-sm text-gray-600">
+        <%= dontHaveAccount %>
+        <a href="/signup" class="text-lime-700 font-medium hover:underline"><%= signUpLinkText %></a>
+      </p>
+    </div>
+
+
+    <script>
+      const passwordInput = document.getElementById('password');
+      const toggleBtn = document.getElementById('togglePassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = passwordInput.type === 'password';
+        passwordInput.type = isHidden ? 'text' : 'password';
+        // Toggle icon visibility
+        eyeIcon.classList.toggle('hidden', !isHidden);
+        eyeOffIcon.classList.toggle('hidden', isHidden);
+      });
+    </script>
+  </body>
+</html>

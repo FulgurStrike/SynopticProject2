@@ -1,0 +1,67 @@
+/* Styles for the fullscreen menu */
+#fullscreenMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0369a1; /* Tailwind sky-700 - for theme matching */
+    z-index: 1000; /* Ensure it's on top of other content */
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width/height calculation */
+    overflow-y: auto; /* Allow scroll if menu items exceed viewport height */
+}
+
+/* Style for individual menu items */
+.menu-item {
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.5rem; /* Larger font for menu items */
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+    text-align: center; /* Ensure text is centered if it wraps */
+}
+
+.menu-item:hover {
+    background-color: #075985; /* Tailwind sky-800 - slightly darker for hover */
+}
+
+/* Special styling for the logout menu item (example) */
+.menu-item.text-red-300:hover {
+    background-color: #b91c1c; /* Tailwind red-700 for hover on logout */
+    color: #fecaca; /* Tailwind red-200 for text on hover for logout */
+}
+
+
+/* Style for the close button */
+#closeMenuButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #0ea5e9; /* Tailwind sky-500 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 9999px; /* Fully rounded */
+    cursor: pointer;
+    font-size: 1.25rem; /* Slightly larger for better visibility */
+    line-height: 1; /* Ensure the times symbol is centered */
+    font-weight: bold; /* Make it bolder */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 1001; /* Ensure close button is above other menu content if layered */
+}
+
+#closeMenuButton:hover {
+    background-color: #0284c7; /* Tailwind sky-600 */
+}
+
+/* Utility class to prevent body scroll when menu is open */
+.body-no-scroll {
+    overflow: hidden !important; /* Use !important to ensure override if necessary */
+}

@@ -15,20 +15,34 @@
       <img src="/user-icon.png" alt="Profile" class="w-8 h-8 rounded-full ml-2" />
     </div>
     <div class="flex justify-center gap-[50px] mb-4 mt-4">
-      <select name="sort" class="p-2 rounded">
-        <option>Relevance</option>
-        <option>Option 2</option>
-      </select>
-      <select name="filter" class="p-2 rounded">
-        <option value="all">All</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-      </select>
+      <form action="/cropPage/sort" method="post">
+        <div class="flex flex-col items-center">
+          <select name="sort" class="p-2 rounded mb-3">
+            <option>Sort By</option>
+            <% sortOptions.forEach(option => { %>
+            <option><%= option %></option>
+            <% }) %>
+          </select>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Sort By</button>
+        </div>
+      </form>
+      <form action="/cropPage/filter" method="post">
+        <div class="flex flex-col items-center">
+          <select name="filter" class="p-2 rounded mb-3">
+            <option>Filter By</option>
+            <% filterOptions.forEach(option => { %>
+            <option><%= option %></option>
+            <% }) %>
+          </select>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Filter By</button>      
+        </div>
+      </form>
     </div>
     <!-- Placeholder Cards -->
     <!-- Crop Cards Container -->
     <div class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto">
       <% crops.forEach(crop=> { %>
+        <a class="block" href="/cropItemPage/<%= crop._id %>">
         <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
           <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
             🌱
@@ -46,11 +60,12 @@
             <div><strong>Sun:</strong>
               <%= crop.sun %>
             </div>
-            <div><strong>Drought Tolerance:</strong>
-              <%= crop.droughtTolerance %>
+            <div><strong>Drought Tolerant:</strong>
+              <%= crop.droughttolerant %>
             </div>
           </div>
         </div>
+        </a>
         <% }) %>
     </div>
   </div>

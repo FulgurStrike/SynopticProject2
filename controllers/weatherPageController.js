@@ -18,14 +18,33 @@ function formatTime(time) {
   return formattedTime;
 }
 
+function averageRainfallPerWeek(weatherData) {
+  let sum = 0;
+  let count = 1;
+  weatherData.forEach(day => {
+    sum += Number(day.precip);
+    count++
+  });
+
+  const average = sum / count;
+
+  return sum;
+}
+
 
 exports.renderWeatherPage = async (req, res) => {
   const weatherData = await getWeatherData();
+
+  const averageRainfall = averageRainfallPerWeek(weatherData.days);
+
+  console.log(averageRainfall);
 
   const weatherPageContent = {
     title: "Weather Forcast",
     tempHeader: "Temperature",
     conditionsHeader: "Conditions",
+    minTempLabel: "Min Temp",
+    maxTempLabel: "Max Temp",
     minTemp: weatherData.days[0].tempmin,
     maxTemp: weatherData.days[0].tempmax,
     conditions: weatherData.days[0].conditions,

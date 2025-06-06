@@ -14,6 +14,8 @@ const farmingRoutes = require('./routes/farmingRoutes');
 const shopRoutes = require('./routes/ShopRoutes');
 const weatherRoutes = require('./routes/weatherPageRoutes');
 const tradingRoutes = require('./routes/TradingRoutes');
+const loginRoutes = require('./routes/LoginRoutes');
+const signupRoutes = require('./routes/SignupRoutes');
 
 const connectDB = require('./config/database');
 dotenv.config(); // Load environment variables from .env
@@ -44,9 +46,9 @@ class App {
     });
 
     this.app.set('view engine', 'ejs');
-    this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
+    this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(cookieParser());
 
     // Passes the login status to the views
@@ -84,8 +86,8 @@ class App {
     this.app.use(shopRoutes);
     this.app.use(weatherRoutes);
     this.app.use(tradingRoutes);
-    this.app.use(express.static(path.join(__dirname, 'public')));
-
+    this.app.use(signupRoutes);
+    this.app.use(loginRoutes);
 
     this.app.listen(this.PORT, () => {
       console.log(`Now listening on port ${this.PORT}`);

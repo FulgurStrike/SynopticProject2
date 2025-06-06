@@ -12,7 +12,7 @@
   <div class="bg-cyan-800 p-4 rounded-xl w-80 shadow-lg">
     <!-- Top search/profile -->
     <div class="flex justify-between items-center bg-white rounded p-2 mb-4">
-      <input class="outline-none w-full" placeholder="Search..." />
+      <h2>Weather Forecast</h2>
       <img src="/user-icon.png" alt="Profile" class="w-8 h-8 rounded-full ml-2" />
     </div>
 
@@ -21,8 +21,8 @@
     <div class="bg-gradient-to-r from-yellow-200 to-yellow-300 rounded p-4 mb-4 border">
       <h2 class="text-lg font-semibold mb-3"><%=tempHeader %></h2>
       <div class="flex items-center justify-between text-sm font-medium mb-2">
-        <span><%= minTemp %>°</span>
-        <span><%= maxTemp %>°</span>
+        <span><%= minTempLabel %><br><%= minTemp %>°</span>
+        <span><%= maxTempLabel %><br><%= maxTemp %>°</span>
       </div>
       <div class="h-1.5 bg-white rounded-full w-full"></div>
     </div>

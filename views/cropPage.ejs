@@ -29,6 +29,7 @@
     <!-- Crop Cards Container -->
     <div class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto">
       <% crops.forEach(crop=> { %>
+        <a class="block" href="/cropItemPage/<%= crop._id %>">
         <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
           <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
             🌱
@@ -51,6 +52,7 @@
             </div>
           </div>
         </div>
+        </a>
         <% }) %>
     </div>
   </div>

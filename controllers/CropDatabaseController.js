@@ -6,24 +6,40 @@ async function getCrops() {
 }
 
 async function generateCropPageContent() {
-  const crops = await getCrops();
-
   const CropPageContent = {
     title: "Crop Page",
     sortOptions: ["Name", "Cycle", "Drought Tolerance", "Watering", "Soil", "Growth Rate", "Fruits In"],
     filterOptions: ["Annual", "Summer", "Spring", "Autumn", "Winter"],
-    crops
+    crops: await getCrops()
   };
 
   return CropPageContent;
 }
 
+exports.clearSortAndFilter = async (req, res) => {
+  res.redirect("cropPage");
+}
+
+
+exports.filterBy = async (req, res) => {
+  const filterParam = req.body.filter;
+
+  const filteredCrops = await Crop.find({"cycle": [filterParam]});
+
+  const content = await generateCropPageContent();
+  content.crops = filteredCrops;
+
+  res.render("cropPage", content);
+}
 
 
 exports.sortBy = async (req, res) => {
   const sortParam = req.body.sort;
+  console.log(sortParam);
 
-  const sortedCrops = Crop.find({}).sort({ [sortParam.toLowerCase()]: 1 });
+  const sortedCrops = await Crop.find({}).sort({ [sortParam.toLowerCase().replace("/\s+/g", "")]: 1 });
+
+  console.log(sortedCrops[0]);
 
   const content = await generateCropPageContent();
   content.crops = sortedCrops;

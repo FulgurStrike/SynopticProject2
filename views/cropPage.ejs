@@ -29,9 +29,10 @@
       <form action="/cropPage/filter" method="post">
         <div class="flex flex-col items-center">
           <select name="filter" class="p-2 rounded mb-3">
-            <option value="all">All</option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
+            <option>Filter By</option>
+            <% filterOptions.forEach(option => { %>
+            <option><%= option %></option>
+            <% }) %>
           </select>
           <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Filter By</button>      
         </div>
@@ -59,8 +60,8 @@
             <div><strong>Sun:</strong>
               <%= crop.sun %>
             </div>
-            <div><strong>Drought Tolerance:</strong>
-              <%= crop.droughtTolerance %>
+            <div><strong>Drought Tolerant:</strong>
+              <%= crop.droughttolerant %>
             </div>
           </div>
         </div>

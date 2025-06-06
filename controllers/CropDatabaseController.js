@@ -36,3 +36,14 @@ exports.renderCropPage = async (req, res) => {
 
   res.render("cropPage", cropPageContent);
 }
+
+exports.renderCropItemPage = async (req, res) => {
+  const cropID = req.params.id;
+  const crop = await Crop.findById(cropID)
+
+  const cropItemContent = {
+    title: "Crop Item Page",
+    crop: crop
+  }
+  res.render("cropItem", cropItemContent)
+}

@@ -12,6 +12,7 @@ const cropRecommendationRoutes = require('./routes/CropRecommendationRoutes');
 const indexRoutes = require('./routes/IndexRoutes');
 const farmingRoutes = require('./routes/farmingRoutes');
 const shopRoutes = require('./routes/ShopRoutes');
+const weatherRoutes = require('./routes/weatherPageRoutes');
 const tradingRoutes = require('./routes/TradingRoutes');
 const loginRoutes = require('./routes/LoginRoutes');
 const signupRoutes = require('./routes/SignupRoutes');
@@ -83,12 +84,12 @@ class App {
     this.app.use(indexRoutes);
     this.app.use(farmingRoutes);
     this.app.use(shopRoutes);
+    this.app.use(weatherRoutes);
     this.app.use(tradingRoutes);
     this.app.use(signupRoutes);
     this.app.use(loginRoutes);
 
     this.app.use(express.static(path.join(__dirname, 'public')));
-    
 
 
     this.app.listen(this.PORT, () => {

@@ -11,8 +11,6 @@ const signupContent = {
   submitButtonText: "Create Account",
   alreadyHaveAccount: "Already have an account?",
   loginLinkText: "Login",
-  errorMessage: "",
-  formData: {}
 }
 
 
@@ -25,10 +23,18 @@ exports.registerUser = async (req, res) => {
 
         const existingUser = await UserModel.findOne({ email });
 
-        if(existingUser){
-            console.log("duplicate email :",email)
-            signupContent.errorMessage="email already in use";
-            return res.render('signupPage',signupContent)
+        if (existingUser) {
+            console.log("duplicate email :", email)
+            req.flash('error', 'Email already in use');
+            req.flash('formData', req.body);
+            return res.redirect('/signup');
+            /*
+            return res.render('signupPage', {
+                ...signupContent,
+                errorMessage: "Email already in use",
+                formData: req.body
+            })
+            */
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -40,29 +46,37 @@ exports.registerUser = async (req, res) => {
             password: hashedPassword
         });
         await user.save();
-        
+        req.flash('success', 'Account created successfully.');
         res.redirect('/login');
 
     } catch (err) {
-
-        let errorMessage = "something went wrong. Please try again.";
+        console.log(err);
+        let errorMessage = "Something went wrong. Please try again.";
 
         if(err.code == 11000 && err.keyPattern?.email){
-            errorMessage ="Email is already in use. Please try another"
+            errorMessage ="Email is already in use. Please try another";
         }
 
         console.log("Error:", errorMessage);
         console.log("Form data:", req.body);
-
+        req.flash('error', errorMessage);
+        req.flash('formData', req.body);
+        return res.redirect('/signup');
+        /*
         return res.render('signupPage', {
             ...signupContent,
             errorMessage,
             formData: req.body // send the posted form data back to fill fields
         });
+        */
     }
 };
 
 // Render sign up page
 exports.renderSignupPage = (req, res) => {
-    res.render('signupPage', signupContent);
+
+    res.render('signupPage', {
+        ...signupContent,
+        formData: req.flash('formData')[0] || {}
+    });
 };

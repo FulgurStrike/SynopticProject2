@@ -46,9 +46,9 @@ class App {
     });
 
     this.app.set('view engine', 'ejs');
-    this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
+    this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(cookieParser());
 
     // Passes the login status to the views
@@ -88,9 +88,6 @@ class App {
     this.app.use(tradingRoutes);
     this.app.use(signupRoutes);
     this.app.use(loginRoutes);
-
-    this.app.use(express.static(path.join(__dirname, 'public')));
-
 
     this.app.listen(this.PORT, () => {
       console.log(`Now listening on port ${this.PORT}`);

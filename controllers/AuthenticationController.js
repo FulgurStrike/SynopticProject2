@@ -14,7 +14,7 @@ const loginContent = {
   email: "Email",
   password: "Password",
   loginButton: "Log In",
-  dontHaveAccount: "Don’t have an account?",
+  dontHaveAccount: "Don't have an account?",
   signUpLinkText: "Sign Up",
   invalidCredentials: ""
 }

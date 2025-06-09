@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const session = require('express-session')
 const flash = require('connect-flash')
-const methodOverride = require('method-override');
 
 const cropPageRoutes = require('./routes/CropPageRoutes');
 const cropRecommendationRoutes = require('./routes/CropRecommendationRoutes');
@@ -52,7 +51,6 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(cookieParser());
-    this.app.use(methodOverride('_method'));
 
     // Passes the login status to the views
     this.app.use((req, res, next) => {

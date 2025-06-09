@@ -50,7 +50,7 @@ exports.sendFromListing = async (req, res) => {
             content: req.body.content
         });
         req.flash('success', 'Message sent successfully');
-        res.redirect('/messagesPage');
+        res.redirect('/messages');
     } catch (err) {
         console.error(err);
         req.flash('error', 'Message failed to send');

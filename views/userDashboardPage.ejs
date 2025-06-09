@@ -1,17 +1,74 @@
-<div class="max-w-3xl mx-auto mt-6 p-4 bg-white shadow rounded">
-  <%- include('partials/flashMessages') %>
-  <h1 class="text-xl font-bold mb-4">Your Conversations</h1>
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-  <% if (contacts.length === 0) { %>
-    <p class="text-gray-500">You haven’t messaged or been messaged by anyone yet.</p>
-  <% } else { %>
-    <ul class="divide-y divide-gray-200">
-      <% contacts.forEach(contact => { %>
-        <li class="py-3 flex justify-between items-center">
-          <span><%= contact.firstName %> <%= contact.lastName %> (<%= contact.email %>)</span>
-          <a href="/messages/conversation/<%= contact._id %>" class="text-blue-600 hover:underline">View Conversation</a>
-        </li>
-      <% }) %>
-    </ul>
-  <% } %>
-</div>
+<body class="min-h-screen flex flex-col p-4 bg-gray-100">
+
+  <div class="w-full max-w-md mx-auto bg-white rounded shadow-lg overflow-hidden flex flex-col">
+
+    <!-- Main Header Content -->
+    <main class="p-4 text-center border-b border-gray-200">
+      <%- include('partials/flashMessages') %>
+
+      <h1 class="text-xl font-semibold text-gray-800 mb-2">
+        Welcome back, <%= user.firstName %>!
+      </h1>
+
+      <% if (contacts.length === 0) { %>
+        <p class="text-gray-500 italic text-sm">
+          You haven’t started any conversations yet. Visit a listing to send your first message.
+        </p>
+      <% } else { %>
+        <p class="text-sm text-gray-600">
+          Tap a user below to open your conversation.
+        </p>
+      <% } %>
+      <div class="flex flex-col sm:flex-row gap-3 mt-2">
+        <a href="/listings" class="flex-1 bg-white border-2 border-black rounded-lg px-4 py-2 text-sm font-semibold text-black shadow hover:bg-gray-100 transition-colors">
+          Go to Listings
+        </a>
+        <a href="/listings/new" class="flex-1 bg-lime-200 border-2 border-black rounded-lg px-4 py-2 text-sm font-semibold text-black shadow hover:bg-lime-300 transition-colors">
+          Create a Listing
+        </a>
+      </div>
+    </main>
+
+    <!-- Contacts List -->
+    <aside class="overflow-y-auto max-h-[60vh]">
+      <div class="p-4">
+        <% if (contacts.length === 0) { %>
+          <p class="text-gray-500 text-center">No conversations yet</p>
+        <% } else { %>
+          <ul class="divide-y divide-gray-200">
+            <% contacts.forEach(contact => { %>
+              <li>
+                <a href="/messages/conversation/<%= contact._id %>" 
+                   class="flex items-center justify-between p-3 rounded hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+                  <div>
+                    <p class="font-medium text-gray-900 text-base"><%= contact.firstName %> <%= contact.lastName %></p>
+                    <p class="text-sm text-gray-500"><%= contact.email %></p>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                       class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </div>
+    </aside>
+
+  </div>
+
+</body>
+</html>
+
+
+

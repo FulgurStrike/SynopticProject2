@@ -7,5 +7,6 @@ router.get('/listings', authenticateUser, TradingController.renderTradingPage);
 router.get('/listings/new', authenticateUser, TradingController.renderCreateForm);
 router.get('/listings/:id', authenticateUser, TradingController.renderListingDetail);
 router.post('/listings', authenticateUser, TradingController.createListing);
+router.delete('/listings/:id', authenticateUser, TradingController.deleteListing);
 
 module.exports = router;

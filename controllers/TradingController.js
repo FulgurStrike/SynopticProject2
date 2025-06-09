@@ -49,5 +49,32 @@ exports.createListing = async (req, res) => {
   }
 } 
 
+exports.deleteListing = async (req, res) => {
+  try {
+    const listing = await Trading.findById(req.params.id);
+
+    if (!listing) {
+      req.flash('error', 'Listing not found');
+      return res.redirect('/listings');
+    }
+
+    // Check if the logged in user is the creator
+    if (listing.createdBy.toString() !== req.user._id.toString()) {
+      req.flash('error', 'You do not have permission to delete this listing');
+      return res.redirect('/listings');
+    }
+
+    await Trading.findByIdAndDelete(req.params.id);
+
+    req.flash('success', 'Listing deleted successfully');
+    res.redirect('/listings');
+  } catch (err) {
+    console.error(err);
+    req.flash('error', 'Failed to delete listing');
+    res.redirect('/listings');
+  }
+};
+
+
 
 

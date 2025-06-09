@@ -1,0 +1,17 @@
+<div class="max-w-3xl mx-auto mt-6 p-4 bg-white shadow rounded">
+  <%- include('partials/flashMessages') %>
+  <h1 class="text-xl font-bold mb-4">Your Conversations</h1>
+
+  <% if (contacts.length === 0) { %>
+    <p class="text-gray-500">You haven’t messaged or been messaged by anyone yet.</p>
+  <% } else { %>
+    <ul class="divide-y divide-gray-200">
+      <% contacts.forEach(contact => { %>
+        <li class="py-3 flex justify-between items-center">
+          <span><%= contact.firstName %> <%= contact.lastName %> (<%= contact.email %>)</span>
+          <a href="/messages/conversation/<%= contact._id %>" class="text-blue-600 hover:underline">View Conversation</a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>

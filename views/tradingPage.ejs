@@ -1,72 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Optional: Custom font if needed, Tailwind defaults are good */
-        /* body { font-family: 'Inter', sans-serif; } */
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-200 flex items-center justify-center min-h-screen p-4">
-
-    <div class="bg-teal-700 p-5 rounded-lg shadow-lg w-full max-w-sm">
-
-        <!-- Header Dropdown -->
-        <div class="mb-4">
-            <div class="bg-gray-100 border border-black rounded-md p-2 flex items-center justify-between">
-                <span class="text-gray-400"></span> <!-- Empty space on left, or placeholder text -->
-                <div class="flex items-center">
-                    <!-- Placeholder for profile image - using a simple one -->
-                    <img src="/cat-call.gif" alt="User" class="w-6 h-6 rounded-full mr-2 object-cover border border-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        <!-- Create Listing Button -->
-        <div class="mb-6">
-            <button class="w-full bg-lime-200 border-2 border-black rounded-lg p-3 flex items-center justify-center text-black font-semibold text-md shadow-sm hover:bg-lime-300 transition-colors">
-                <div class="border-2 border-black rounded p-0.5 w-7 h-7 flex items-center justify-center mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                Create a Listing
-            </button>
-        </div>
-
-        <!-- Listings Section -->
-        <div class="space-y-3">
-            <% listings.forEach(listing => { %>
-                <div class="bg-gray-100 border border-black rounded-md p-3 flex items-start gap-3 shadow-sm">
-                    <div class="w-16 h-16 <%= listing.colorClass %> rounded flex-shrink-0"></div>
-                    <div class="text-sm text-black space-y-1">
-                        <p>Item: <span class="border-b border-black inline-block w-24"></span></p>
-                        <p>Type: <span class="border-b border-black inline-block w-20"></span></p>
-                        <p>Quantity: <span class="border-b border-black inline-block w-16"></span></p>
-                        <p>Extra Details: <span class="border-b border-black inline-block w-28"></span></p>
-                    </div>
-                </div>
-            <% }); %>
-        </div>
-
+  <div class="bg-teal-700 p-5 rounded-lg shadow-lg w-full max-w-sm">
+    <%- include('partials/flashMessages') %>
+    <!-- Dashboard Button -->
+    <div class="mb-4">
+      <a href="/messages" class="w-full bg-white border-2 border-black rounded-lg p-3 flex items-center justify-center text-black font-semibold text-md shadow-sm hover:bg-gray-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zM5 6h10v10H5V6z"/>
+        </svg>
+        Go to Dashboard
+      </a>
     </div>
 
-    <%#
-        Example data you would pass to this EJS template from your server:
-        const listingsData = [
-            { id: 1, colorClass: 'bg-pink-300' },
-            { id: 2, colorClass: 'bg-cyan-300' },
-            { id: 3, colorClass: 'bg-yellow-300' }
-        ];
-        // In your Express route:
-        // res.render('index', { listings: listingsData });
-    %>
+    <!-- Create Listing Button (can later be linked) -->
+    <div class="mb-6">
+      <a href="/listings/new" class="w-full bg-lime-200 border-2 border-black rounded-lg p-3 flex items-center justify-center text-black font-semibold text-md shadow-sm hover:bg-lime-300 transition-colors">
+        <div class="border-2 border-black rounded p-0.5 w-7 h-7 flex items-center justify-center mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        Create a Listing
+      </a>
+    </div>
 
+    <!-- Listings Section -->
+    <div class="space-y-3">
+      <% listings.forEach(listing => { %>
+        <a href="/listings/<%= listing._id %>" class="block bg-gray-100 border border-black rounded-md p-3 hover:bg-gray-200 transition-colors shadow-sm">
+          <div class="text-sm text-black space-y-1">
+            <p><strong>Name:</strong> <%= listing.name %></p>
+            <p><strong>Description:</strong> <%= listing.description %></p>
+            <p><strong>Price:</strong> $<%= listing.price %></p>
+            <p><strong>Posted by:</strong> <%= listing.createdBy.firstName %> <%= listing.createdBy.lastName %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+
+  </div>
 </body>
 </html>

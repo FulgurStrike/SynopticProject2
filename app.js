@@ -14,6 +14,7 @@ const farmingRoutes = require('./routes/farmingRoutes');
 const shopRoutes = require('./routes/ShopRoutes');
 const weatherRoutes = require('./routes/weatherPageRoutes');
 const tradingRoutes = require('./routes/TradingRoutes');
+const messageRoutes = require('./routes/MessageRoutes');
 const loginRoutes = require('./routes/LoginRoutes');
 const signupRoutes = require('./routes/SignupRoutes');
 
@@ -53,18 +54,17 @@ class App {
 
     // Passes the login status to the views
     this.app.use((req, res, next) => {
-      const driverToken = req.cookies.driver_token;
-      const adminToken = req.cookies.adminToken // Check for JWT Token
-      res.locals.isLoggedIn = driverToken || adminToken ? true : false;
+      const token = req.cookies.user_token; // Check for JWT Token
+      res.locals.isLoggedIn = !!token;
       next();
     });
 
     // MongoDB connection
     await connectDB();
 
-    // Middleware to authenticate JWT token (for protected routes)
+    /* Middleware to authenticate JWT token (for protected routes)
     this.app.use((req, res, next) => {
-      const token = req.cookies.auth_token; // Accessing JWT token from cookie
+      const token = req.cookies.user_token; // Accessing JWT token from cookie
       if (token) {
         jwt.verify(token, process.env.JWT_TOKEN, (err, user) => {
           if (err) {
@@ -77,6 +77,7 @@ class App {
         next(); // Continue even if there's no token
       }
     });
+    */
     
     // routes
     this.app.use(cropPageRoutes);
@@ -86,6 +87,7 @@ class App {
     this.app.use(shopRoutes);
     this.app.use(weatherRoutes);
     this.app.use(tradingRoutes);
+    this.app.use(messageRoutes);
     this.app.use(signupRoutes);
     this.app.use(loginRoutes);
 

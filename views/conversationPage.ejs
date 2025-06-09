@@ -1,0 +1,21 @@
+<div class="max-w-2xl mx-auto mt-6 p-4 bg-white shadow rounded">
+  <%- include('partials/flashMessages') %>
+  <h1 class="text-xl font-bold mb-4">Conversation with <%= otherUser.firstName %></h1>
+
+  <div class="space-y-4 max-h-[60vh] overflow-y-auto">
+    <% messages.forEach(msg => { %>
+      <div class="<%= msg.sender._id.toString() === user._id.toString() ? 'text-right' : 'text-left' %>">
+        <p class="inline-block p-2 rounded <%= msg.sender._id.toString() === user._id.toString() ? 'bg-blue-100' : 'bg-gray-100' %>">
+          <%= msg.content %>
+        </p>
+        <p class="text-xs text-gray-400 mt-1"><%= msg.createdAt.toLocaleString() %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <form action="/messages/reply/<%= otherUser._id %>" method="POST" class="mt-4 space-y-2">
+    <textarea name="content" required rows="3" class="w-full border p-2 rounded" placeholder="Type your message..."></textarea>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+  </form>
+
+</div>

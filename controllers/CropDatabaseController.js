@@ -47,6 +47,16 @@ exports.sortBy = async (req, res) => {
   res.render("cropPage", content);
 }
 
+exports.search = async (req, res) => {
+  const searchParam = req.body.search;
+
+  const searchedCrops = await Crop.find({}).find({"name": { $regex: searchParam, $options: "i" }})
+  const content = await generateCropPageContent();
+  content.crops = searchedCrops;
+
+  res.render("cropPage", content);
+}
+
 exports.renderCropPage = async (req, res) => {
   const cropPageContent = await generateCropPageContent();
 

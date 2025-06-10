@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 import random
 
-# ---------------------------
-# CROP PROFILES (tailored to South Africa)
-# ---------------------------
+
+# CROP PROFILES (tailored to South Africa/Joberg)
+
 crops = [
     {
         "name": "spinach",
@@ -117,9 +117,9 @@ crops = [
     },
 ]
 
-# ---------------------------
+
 # SEASONAL CLIMATE DATA (Makers Valley)
-# ---------------------------
+
 seasonal_conditions = {
     "summer": {"temperature": 26, "humidity": 55, "rainfall": 80},  # mm per week
     "winter": {"temperature": 16, "humidity": 70, "rainfall": 10},
@@ -127,9 +127,9 @@ seasonal_conditions = {
 
 soil_types = ["loamy", "sandy", "clay"]
 
-# ---------------------------
+
 # Generate synthetic rows
-# ---------------------------
+
 rows = []
 for _ in range(5000):
     season = random.choice(["summer", "winter"])
@@ -165,9 +165,10 @@ for _ in range(5000):
         crop_name = random.choice(valid_crops)
         rows.append([soil, sunlight,temp, humidity, water_per_m2, crop_name])
 
-# ---------------------------
+
 # Save to CSV
-# ---------------------------
+
+
 cols = ["soil", "sunlight","temperature", "humidity", "water_per_m2", "crop"]
 df = pd.DataFrame(rows, columns=cols)
 df.to_csv("urban_crop_dataset.csv", index=False)

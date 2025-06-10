@@ -71,4 +71,4 @@ for idx, farm in enumerate(sample_inputs, 1):
             print(f"{i}. {crop} ({count} votes)")
 
 endTime = time.time()
-print(f"\n✅ Auto test completed in {endTime - startTime:.2f} seconds.")
+print(f"\n Auto test completed in {endTime - startTime:.2f} seconds.")

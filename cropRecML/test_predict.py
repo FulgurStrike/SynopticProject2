@@ -6,7 +6,6 @@ from collections import Counter
 # Load model and encoders
 model = joblib.load('knn_crop_model.pkl')
 soil_encoder = joblib.load('soil_encoder.pkl')
-season_encoder = joblib.load('season_encoder.pkl')
 crop_encoder = joblib.load('crop_encoder.pkl')
 
 # Input from user

@@ -171,4 +171,4 @@ for _ in range(5000):
 cols = ["soil", "sunlight","temperature", "humidity", "water_per_m2", "crop"]
 df = pd.DataFrame(rows, columns=cols)
 df.to_csv("urban_crop_dataset.csv", index=False)
-print("✅ Synthetic dataset with valid conditions saved to 'urban_crop_dataset.csv'")
+print("Synthetic dataset with valid conditions saved to 'urban_crop_dataset.csv'")

@@ -10,7 +10,8 @@ const cropSchema = new Schema({
   sun: [String],
   soil: {type: String},
   growthrate: {type: String},
-  fruitsin: [String]
+  fruitsin: [String],
+  imageurl: {type: String}
 });
 
 module.exports = mongoose.model('Crop', cropSchema);

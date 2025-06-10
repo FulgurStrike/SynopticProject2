@@ -44,9 +44,7 @@
       <% crops.forEach(crop=> { %>
         <a class="block" href="/cropItemPage/<%= crop._id %>">
         <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
-          <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
-            🌱
-          </div>
+          <img src="<%= crop.imageurl %>" class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
           <div class="flex-1 space-y-1 text-sm text-[#3a2c24]">
             <div><strong>Name:</strong>
               <%= crop.name %>

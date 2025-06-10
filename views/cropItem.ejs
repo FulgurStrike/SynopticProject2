@@ -18,22 +18,34 @@
             <img src="/user-icon.png" alt="Profile" class="w-8 h-8 justify-center justify-self-center ml-2" />
         </div>
 
-        <img src="<%= crop.imageurl %>" alt="<%= crop.name %>" class="w-48 h-48 justify-self-center m-2.5 rounded">
-        <div class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto">
-        <h1 class="justify-self-center text-center text-2xl italic"><strong><%= crop.name %></strong></h1>
+        <div class="flex justify-center">
+            <img src="<%= crop.imageurl %>" alt="<%= crop.name %>" class="w-48 h-48 m-2.5 rounded">
+        </div>
 
-        <ul class="grid grid-cols-2">
-            <li class=""><i class="fa-solid fa-mountain-sun m-1"></i>Cycle: <%= crop.cycle %></li>
-            <li class=""><i class="fa-solid fa-sun-plant-wilt m-1"></i>Drought Tolerant: <%= crop.droughttolerant %></li>
-            <li class=""><i class="fa-solid fa-glass-water m-1"></i>Watering: <%= crop.watering %></li>
-            <li class=""><i class="fa-solid fa-sun m-1"></i>Sun: <%= crop.sun.join(", ") %></li>
-            <li class=""><i class="fa-solid fa-layer-group m-1"></i>Soil: <%= crop.soil %></li>
-            <li class=""><i class="fa-solid fa-rocket m-1"></i>Growth Rate: <%= crop.growthrate %></li>
-            <li class=""><i class="fa-solid fa-leaf m-1"></i>Fruits In: <%= crop.fruitsin.join(", ") %></li>
+        <div class="bg-[#fffaf4] rounded border border-[#4b372e] p-2 space-y-3 h-[400px] overflow-y-auto">
+            <h1 class="justify-self-center text-center text-2xl italic"><strong>
+                    <%= crop.name %>
+                </strong></h1>
+
+            <ul class="grid grid-cols-2">
+                <li class=""><i class="fa-solid fa-mountain-sun m-1"></i>Cycle: <%= crop.cycle %>
+                </li>
+                <li class=""><i class="fa-solid fa-sun-plant-wilt m-1"></i>Drought Tolerant: <%= crop.droughttolerant %>
+                </li>
+                <li class=""><i class="fa-solid fa-glass-water m-1"></i>Watering: <%= crop.watering %>
+                </li>
+                <li class=""><i class="fa-solid fa-sun m-1"></i>Sun: <%= crop.sun.join(", ") %></li>
+            <li class=""><i class=" fa-solid fa-layer-group m-1"></i>Soil: <%= crop.soil %>
+                </li>
+                <li class=""><i class="fa-solid fa-rocket m-1"></i>Growth Rate: <%= crop.growthrate %>
+                </li>
+                <li class=""><i class="fa-solid fa-leaf m-1"></i>Fruits In: <%= crop.fruitsin.join(", ") %></li>
         </ul>
 
-        <h2 class="justify-self-center text-center text-lg underline">Description:</h1>
-        <p><%= crop.description %></p>
+        <h2 class=" justify-self-center text-center text-lg underline">Description:</h1>
+                        <p>
+                            <%= crop.description %>
+                        </p>
         </div>
     </div>
 </body>

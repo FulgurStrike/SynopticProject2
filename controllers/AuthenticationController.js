@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         const userID = user._id.toString();
         console.log(userID);
         res.cookie('user_token', token, {httpOnly: true, maxAge: 5 * 60 * 60 * 1000});
-        path: '/'
+        
         res.cookie('user_id', userID);
 
         return res.redirect('/');
@@ -72,21 +72,34 @@ exports.logout = (req, res) => {
 
 // Middleware to authenticate JWT token
 exports.authenticateUser = (req, res, next) => {
-    const token = req.cookies.driver_token;
+    const token = req.cookies.user_token;
     if (!token) {
         res.clearCookie('user_token');
         res.clearCookie('user_id');
         return res.redirect('/login');
     } 
 
-    jwt.verify(token, process.env.JWT_TOKEN, (err, user) => {
+    jwt.verify(token, process.env.JWT_TOKEN, async (err, decoded) => {
         if (err) {
+            res.clearCookie('user_token');
+            res.clearCookie('user_id');
+            req.flash('error', 'Session expired, please log in again');
+            return res.redirect('/login');
+        }
+
+        try {
+            const user = await User.findById(decoded.userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            req.user = user;
+            next();
+        } catch (err) {
+            console.log(err);
             res.clearCookie('user_token');
             res.clearCookie('user_id');
             return res.redirect('/login');
         }
-        req.user = user;
-        next();
     });
 };
 

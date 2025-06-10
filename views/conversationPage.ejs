@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Conversation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 h-screen flex flex-col">
+
+    <div class="max-w-md mx-auto w-full h-full flex flex-col bg-white shadow-md">
+
+      <!-- Header -->
+      <div class="p-4 border-b flex items-center space-x-3">
+        <a href="/messages" class="text-blue-600 hover:text-blue-800 transition-colors">
+          <!-- Back Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </a>
+        <h1 class="text-lg font-semibold text-gray-800">
+          Chat with <%= otherUser.firstName %>
+        </h1>
+      </div>
+
+      <!-- Messages -->
+      <div class="flex-1 overflow-y-auto px-4 py-2 space-y-3">
+        <% messages.forEach(msg => { %>
+          <div class="flex <%= msg.sender._id.toString() === user._id.toString() ? 'justify-end' : 'justify-start' %>">
+            <div class="<%= msg.sender._id.toString() === user._id.toString() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-900' %> rounded-xl px-4 py-2 max-w-[75%]">
+              <p class="text-sm"><%= msg.content %></p>
+              <p class="text-[10px] mt-1 <%= msg.sender._id.toString() === user._id.toString() ? 'text-blue-200' : 'text-gray-500' %>">
+                <%= msg.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+              </p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+      <!-- Fixed Message Input -->
+      <form action="/messages/reply/<%= otherUser._id %>" method="POST" class="p-4 border-t">
+        <div class="flex items-center space-x-2">
+          <textarea
+            name="content"
+            rows="1"
+            required
+            placeholder="Type a message..."
+            class="flex-1 resize-none border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          ></textarea>
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  </body>
+
+</html>
+

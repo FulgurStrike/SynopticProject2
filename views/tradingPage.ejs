@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-teal-700 p-5 rounded-lg shadow-lg w-full max-w-sm flex flex-col overflow-hidden">
+    <div class="p-5 space-y-4">
+      <%- include('partials/flashMessages') %>
+      <!-- Dashboard Button -->
+        <a href="/messages" class="w-full bg-white border-2 border-black rounded-lg p-3 flex items-center justify-center text-black font-semibold text-md shadow-sm hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zM5 6h10v10H5V6z"/>
+          </svg>
+          Dashboard
+        </a>
+
+      <!-- Create Listing Button -->
+        <a href="/listings/new" class="w-full bg-lime-200 border-2 border-black rounded-lg p-3 flex items-center justify-center text-black font-semibold text-md shadow-sm hover:bg-lime-300 transition-colors">
+          <div class="border-2 border-black rounded p-0.5 w-7 h-7 flex items-center justify-center mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          Add a Listing
+        </a>
+    </div>    
+
+    <!-- Listings Section -->
+    <div class="max-h-[500px] overflow-y-auto px-5 pb-5 space-y-3">
+      <% listings.forEach(listing => { %>
+        <a href="/listings/<%= listing._id %>" class="block bg-gray-100 border border-black rounded-md p-3 hover:bg-gray-200 transition-colors shadow-sm">
+          <div class="text-sm text-black space-y-1">
+            <p><strong>Name:</strong> <%= listing.name %></p>
+            <p><strong>Description:</strong> <%= listing.description %></p>
+            <p><strong>Price:</strong> $<%= listing.price %></p>
+            <p><strong>Posted by:</strong> <%= listing.createdBy.firstName %> <%= listing.createdBy.lastName %></p>
+            <p class="text-sm text-gray-700">
+              <%= listing.createdAt.toLocaleDateString('en-GB', {
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+              }) %>
+            </p>
+          <% if(user && user._id.toString() === listing.createdBy._id.toString()) { %>  
+            <form action="/listings/<%= listing._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+              <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+            </form>
+          <% } %>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+
+  </div>
+</body>
+</html>

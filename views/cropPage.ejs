@@ -8,8 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[#f5f5f0] flex justify-center items-center min-h-screen">
+<body class="bg-sky-100 flex justify-center items-center min-h-screen">
   <div class="bg-cyan-800 p-4 rounded-xl w-96 shadow-lg">
+    <a href="/" class="inline-block">
+                <button type="button" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg text-sm mr-4 transition-colors duration-150 p-1">
+                    Back to Homepage
+                </button>
+            </a>
       <form action="/cropPage/search" method="post" class="flex justify-between items-center bg-white rounded p-2">
         <input name="search" class="outline-none w-full" placeholder="Search..." />
         <button type="submit" class="w-8 h-8 rounded-full ml-2">Go</button>
@@ -44,7 +49,9 @@
       <% crops.forEach(crop=> { %>
         <a class="block" href="/cropItemPage/<%= crop._id %>">
         <div class="bg-[#d6bfa6] rounded p-3 flex items-center space-x-3">
-          <img src="<%= crop.imageurl %>" class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
+          <div class="w-16 h-16 bg-[#8d735d] rounded flex items-center justify-center text-white font-bold text-xl">
+            🌱
+          </div>
           <div class="flex-1 space-y-1 text-sm text-[#3a2c24]">
             <div><strong>Name:</strong>
               <%= crop.name %>

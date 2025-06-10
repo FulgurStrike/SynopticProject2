@@ -75,6 +75,15 @@ exports.deleteListing = async (req, res) => {
   }
 };
 
+exports.clearAllListings = async (req, res) => {
+    try {
+        await Trading.deleteMany({});
+        res.send('All listings deleted.');
+    } catch (err) {
+        res.status(500).send('Error deleting listings.');
+    }
+};
+
 
 
 

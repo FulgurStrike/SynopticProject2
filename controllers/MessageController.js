@@ -85,6 +85,17 @@ exports.conversationWithUser = async (req, res) => {
     }
 }
 
+
+
+exports.clearAllMessages = async (req, res) => {
+    try {
+        await Message.deleteMany({});
+        res.send('All messages deleted.');
+    } catch (err) {
+        res.status(500).send('Error deleting messages.');
+    }
+};
+
 exports.replyToUser = async (req, res) => {
     try {
         await Message.create({

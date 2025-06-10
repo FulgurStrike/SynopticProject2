@@ -28,4 +28,4 @@ joblib.dump(model, "knn_crop_model.pkl")
 joblib.dump(soil_encoder, "soil_encoder.pkl")
 joblib.dump(crop_encoder, "crop_encoder.pkl")
 
-print("✅ Model and encoders saved.")
+print("Model and encoders saved.")

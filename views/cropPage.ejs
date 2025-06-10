@@ -122,21 +122,19 @@
     </div>
 
     <!-- Fullscreen Menu -->
-  <div id="fullscreenMenu">
+    <div id="fullscreenMenu">
         <button id="closeMenuButton" aria-label="Close menu">
-            &times; </button>
+            &times;
+        </button>
         <nav class="flex flex-col items-center">
             <a href="/" class="menu-item">Back to home</a>
-        <% if (!isLoggedIn) { %>
             <a href="/login" class="menu-item">Login</a>
             <a href="/signUp" class="menu-item">Sign-up</a>
-        <% } else { %>
-            <a href="/logout" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
-        <% } %>
+            <a href="#" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
         </nav>
     </div>
 
-    <script src="./Scripts/Dropdown.js"></script>
+    <script src="/Scripts/Dropdown.js"></script>
 </body>
 
 </html>

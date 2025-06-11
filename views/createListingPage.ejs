@@ -5,23 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Create Listing</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body class="bg-gray-100 p-4 min-h-screen flex items-center justify-center">
 
-  <form action="/listings" method="POST" class="bg-white p-6 rounded-lg shadow max-w-md w-full space-y-4">
-    <%- include('partials/flashMessages') %>
-    <div class="flex justify-between items-center mb-2">
-      <a href="/listings" class="text-sm text-blue-600 hover:underline">← Listings</a>
-      <a href="/messages" class="text-sm text-blue-600 hover:underline">Dashboard →</a>
+<body class="bg-sky-100 min-h-screen flex flex-col items-center py-6 sm:py-10 px-4">
+  <div class="w-full max-w-2xl mx-auto">
+
+    <!-- Header -->
+    <header class="mb-8 p-4 bg-white rounded-lg shadow-md flex w-full items-center justify-between">
+      <a href="/" class="inline-block">
+        <button type="button" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-colors duration-150">
+          Back to Homepage
+        </button>
+      </a>
+      <div class="relative">
+        <div class="flex items-center space-x-2 cursor-pointer">
+          <img src="/images/user-icon.png" alt="User Profile" class="w-10 h-10 rounded-full border-2 border-sky-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Listing Form -->
+    <form action="/listings" method="POST" class="bg-white border-2 border-black p-6 rounded-xl shadow-lg space-y-6">
+      <%- include('partials/flashMessages') %>
+
+      <!-- Navigation Buttons -->
+      <div class="flex flex-col sm:flex-row justify-between gap-4">
+        <a href="/listings" class="flex-1 flex items-center justify-center bg-sky-200 border border-black rounded-lg px-4 py-2 text-sm font-semibold text-black hover:bg-sky-300 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          Listings
+        </a>
+        <a href="/messages" class="flex-1 flex items-center justify-center bg-gray-100 border border-black rounded-lg px-4 py-2 text-sm font-semibold text-black hover:bg-gray-200 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4V3H3v7zm0 11h4v-7H3v7zm7 0h4v-4h-4v4zm0-11h4V3h-4v7zm7 11h4v-7h-4v7zm0-11h4V3h-4v7z" />
+          </svg>
+          Dashboard
+        </a>
+      </div>
+
+      <h1 class="text-2xl font-bold text-gray-800 mt-4">Add a New Listing</h1>
+
+      <input name="name" placeholder="Crop Name" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+      <textarea name="description" placeholder="Description" required rows="4"
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <input name="price" type="number" step="0.01" placeholder="Price" required
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+      <button type="submit"
+        class="w-full bg-lime-200 border border-black text-black font-semibold py-3 rounded-lg hover:bg-lime-300 transition">
+        Create Listing
+      </button>
+    </form>
+
+    <!-- Fullscreen Dropdown Menu -->
+    <div id="fullscreenMenu">
+      <button id="closeMenuButton" aria-label="Close menu">&times;</button>
+      <nav class="flex flex-col items-center">
+        <a href="/" class="menu-item">Back to home</a>
+        <a href="/cropPage" class="menu-item">Database</a>
+        <a href="/cropRecommendationPage" class="menu-item">Recommendations</a>
+        <% if (!isLoggedIn) { %>
+          <a href="/login" class="menu-item">Login</a>
+          <a href="/signUp" class="menu-item">Sign-up</a>
+        <% } else { %>
+          <a href="/logout" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
+          <a href="/messages" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Messages</a>
+        <% } %>
+      </nav>
     </div>
-    <h1 class="text-xl font-bold">Add a New Listing</h1>
 
-    <input name="name" placeholder="Crop Name" required class="w-full border p-2 rounded" />
-    <textarea name="description" placeholder="Description" required class="w-full border p-2 rounded"></textarea>
-    <input name="price" type="number" step="0.01" placeholder="Price" required class="w-full border p-2 rounded" />
-
-    <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Create Listing</button>
-  </form>
-
+    <script src="/Scripts/Dropdown.js"></script>
+  </div>
 </body>
 </html>
+
+

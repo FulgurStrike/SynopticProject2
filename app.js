@@ -17,6 +17,7 @@ const tradingRoutes = require('./routes/TradingRoutes');
 const messageRoutes = require('./routes/MessageRoutes');
 const loginRoutes = require('./routes/LoginRoutes');
 const signupRoutes = require('./routes/SignupRoutes');
+const infoRoutes = require('./routes/InfoPageRoutes');
 
 const connectDB = require('./config/database');
 dotenv.config(); // Load environment variables from .env
@@ -91,6 +92,7 @@ class App {
     this.app.use(messageRoutes);
     this.app.use(signupRoutes);
     this.app.use(loginRoutes);
+    this.app.use(infoRoutes);
 
     this.app.listen(this.PORT, () => {
       console.log(`Now listening on port ${this.PORT}`);

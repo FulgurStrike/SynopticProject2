@@ -11,6 +11,7 @@
       font-family: 'Inter', sans-serif;
     }
   </style>
+  <link rel="stylesheet" href="./CSS/Dropdown.css">
 </head>
 
 <body class="bg-sky-100 min-h-screen flex flex-col items-center py-6 sm:py-10 px-4">
@@ -88,7 +89,7 @@
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg"
                      class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </a>
             </li>
@@ -98,6 +99,23 @@
     </aside>
 
   </div>
+
+   <div id="fullscreenMenu">
+        <button id="closeMenuButton" aria-label="Close menu">
+            &times; </button>
+        <nav class="flex flex-col items-center">
+            <a href="/" class="menu-item">Back to home</a>
+            <a href="/AboutUs" class="menu-item">About Us</a>
+        <% if (!isLoggedIn) { %>
+            <a href="/login" class="menu-item">Login</a>
+            <a href="/signUp" class="menu-item">Sign-up</a>
+        <% } else { %>
+            <a href="/logout" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
+        <% } %>
+        </nav>
+    </div>
+
+    <script src="./Scripts/Dropdown.js"></script>
 
 </body>
 </html>

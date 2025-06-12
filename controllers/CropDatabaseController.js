@@ -8,7 +8,7 @@ async function getCrops() {
 async function generateCropPageContent() {
   const CropPageContent = {
     title: "Crop Page",
-    sortOptions: ["Name", "Cycle", "Drought Tolerance", "Watering", "Soil", "Growth Rate", "Fruits In"],
+    sortOptions: ["Name", "Cycle", "Drought Tolerant", "Watering", "Soil", "Growth Rate", "Fruits In"],
     filterOptions: ["Annual", "Summer", "Spring", "Autumn", "Winter"],
     crops: await getCrops()
   };
@@ -37,7 +37,7 @@ exports.sortBy = async (req, res) => {
   const sortParam = req.body.sort;
   console.log(sortParam);
 
-  const sortedCrops = await Crop.find({}).sort({ [sortParam.toLowerCase().replace("/\s+/g", "")]: 1 });
+  const sortedCrops = await Crop.find({}).sort({ [sortParam.toLowerCase().replace(" ", "")]: 1 });
 
   console.log(sortedCrops[0]);
 

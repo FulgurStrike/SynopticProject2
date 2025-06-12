@@ -29,7 +29,7 @@ exports.getShopData = async (req, res) => {
   const crops = await ShopCrop.find().lean()
   res.json({
     //items: database,
-    items: crops.map(c => ({name: c.name, quantity: c.quantity})),
+    items: crops.map(c => ({ _id: c._id, name: c.name, quantity: c.quantity })),
     lastUpdated: formatTimeDiff(lastUpdated),
     admin: isAdmin
   });
@@ -61,23 +61,19 @@ exports.addItem = async (req, res) => {
 
 exports.updateQuantity = async (req, res) => {
   const key = req.query.key;
-  const { index, quantity } = req.body;
+  let { id, quantity } = req.body;
 
   if (key !== ADMIN_KEY) {
     return res.status(403).json({ error: "Forbidden" });
   }
 
-  if (typeof index !== 'number' || typeof quantity !== 'number' || quantity < 0) {
-    return res.status(400).json({ error: "Invalid input" });
+  quantity = Number(quantity);
+
+  if (!id || typeof id !== 'string' || isNaN(quantity) || quantity < 0) {
+    return res.status(400).json({ error: "Invalid data" });
   }
 
-  const crops = await ShopCrop.find().lean();
-  if (index < 0 || index >= crops.length) {
-    return res.status(400).json({ error: "Invalid index" });
-  }
-
-  const cropToUpdate = crops[index];
-  await ShopCrop.updateOne({ _id: cropToUpdate._id }, { $set: { quantity } });
+  await ShopCrop.updateOne({ _id: id }, { $set: { quantity } });
   lastUpdated = new Date();
 
   res.sendStatus(200);

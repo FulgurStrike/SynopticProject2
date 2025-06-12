@@ -1,28 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./CSS/Dropdown.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./CSS/Dropdown.css" />
 </head>
-<body class="bg-sky-100 min-h-screen flex flex-col items-center py-6 sm:py-10 px-4">
+<body class="bg-sky-100 min-h-screen flex flex-col items-center py-6 sm:py-10 px-4 font-[Inter]">
 
-    <div class="w-full max-w-2xl mx-auto">
-        <!-- Header -->
-        <header class="mb-8 p-4 bg-white rounded-lg shadow-md flex items-center justify-end">
-            <div class="relative">
-                <div class="flex items-center space-x-2 cursor-pointer"> 
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-            </div>
-        </header>
+  <div class="w-full max-w-2xl mx-auto">
+    <!-- Header -->
+    <header class="mb-8 p-4 bg-white rounded-lg shadow-md flex items-center justify-end">
+      <div class="relative">
+        <div class="flex items-center space-x-2 cursor-pointer"> 
+          <div class="p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </div>  
+        </div>
+      </div>
+    </header>
 
-        
-    </div>
+    <!-- About Us Content -->
+    <section class="bg-white p-6 rounded-lg shadow-md text-gray-800">
+      <h1 class="text-3xl font-bold mb-4 text-center">About Us</h1>
+
+      <p class="mb-4">
+        Food security is a big issue. To tackle this, we decided to build an educational website to teach people how to start their own urban farm. This empowers communities by enabling more people to grow their own groceries and reduce reliance on expensive local shops.
+      </p>
+
+      <p class="mb-4">
+        Urban farmers can further improve food security by trading what they grow with others. Our website supports this with a trading and messaging forum to help farmers connect and share resources.
+      </p>
+
+      <p class="mb-4">
+        To help beginners, we provide a database of common crops grown in Johannesburg. This includes growing conditions, hardiness, water requirements, and more. The information is presented in short, digestible chunks to make learning simple and approachable.
+      </p>
+
+      <p class="mb-4">
+        A crop recommendation system also allows users to input their area’s conditions. Using data science techniques like K-Nearest Neighbours (KNN), the site suggests crops best suited to those conditions.
+      </p>
+
+      <h2 class="text-2xl font-semibold mt-6 mb-3">Solutions Our App Provides</h2>
+
+      <div class="mb-4">
+        <h3 class="text-xl font-medium mb-2">Food:</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Increasing production of healthier (less processed) foods</li>
+          <li>Educating people on growing their own urban farm</li>
+          <li>Encouraging the local community in sustainable practices</li>
+          <li>Expanding the range of groceries local retailers provide, improving food security</li>
+        </ul>
+      </div>
+
+      <div class="mb-4">
+        <h3 class="text-xl font-medium mb-2">Water:</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Assisting with water management by advising on suitable crops based on water availability</li>
+        </ul>
+      </div>
+
+      <div class="mb-4">
+        <h3 class="text-xl font-medium mb-2">Economical:</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Promoting more food suppliers, reducing average prices through market diversification</li>
+          <li>Decentralizing the market, reducing the need to travel for groceries</li>
+          <li>Encouraging competition, leading to potential price reductions from major retailers</li>
+          <li>Promoting entrepreneurship</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
 </body>
+</html>

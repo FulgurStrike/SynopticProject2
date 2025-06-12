@@ -15,7 +15,7 @@
 
 <body class="bg-sky-100 min-h-screen flex flex-col items-center py-6 sm:py-10 px-4">
 
-  <!-- Navbar (copied from login page) -->
+  <!-- Navbar -->
   <div class="w-full max-w-2xl">
     <header class="mb-6 p-4 bg-white rounded-xl shadow-md flex items-center justify-between">
       <a href="/" class="inline-block">
@@ -25,9 +25,16 @@
       </a>
       <div class="relative">
         <div class="flex items-center space-x-2 cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
+          <% if (user && user.firstName) { %>
+            <span class="text-sm font-medium text-gray-700 max-w-[100px] truncate inline-block align-middle" title="<%= user.firstName %>">
+              <%= user.firstName %>
+            </span>
+          <% } %>
+          <div class="p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors duration-200"> 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor" id="profileMenuTrigger">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </div>  
         </div>
       </div>
     </header>

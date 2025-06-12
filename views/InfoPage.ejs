@@ -13,6 +13,11 @@
   <div class="w-full max-w-2xl mx-auto">
     <!-- Header -->
     <header class="mb-8 p-4 bg-white rounded-lg shadow-md flex items-center justify-end">
+      <a href="/" class="inline-block">
+                <button type="button" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg text-sm mr-4 transition-colors duration-150">
+                    Back to Homepage
+                </button>
+            </a>
       <div class="relative">
         <div class="flex items-center space-x-2 cursor-pointer"> 
           <div class="p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
@@ -74,6 +79,22 @@
       </div>
     </section>
   </div>
+   <div id="fullscreenMenu">
+        <button id="closeMenuButton" aria-label="Close menu">
+            &times; </button>
+        <nav class="flex flex-col items-center">
+            <a href="/" class="menu-item">Back to home</a>
+        <% if (!isLoggedIn) { %>
+            <a href="/login" class="menu-item">Login</a>
+            <a href="/signUp" class="menu-item">Sign-up</a>
+        <% } else { %>
+            <a href="/logout" class="menu-item text-red-300 hover:bg-red-700 hover:text-red-100">Logout</a>
+        <% } %>
+        </nav>
+    </div>
+
+      <script src="./Scripts/Dropdown.js"></script>
+
 
 </body>
 </html>

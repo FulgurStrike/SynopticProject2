@@ -82,20 +82,17 @@ exports.updateQuantity = async (req, res) => {
 // API controller: remove item by index (admin only)
 exports.removeItem = async (req, res) => {
   const key = req.query.key;
-  const { index } = req.body;
+  const { id } = req.body;
 
   if (key !== ADMIN_KEY) {
     return res.status(403).json({ error: "Forbidden" });
   }
 
-  const crops = await ShopCrop.find().lean();
-  if (typeof index !== 'number' || index < 0 || index >= crops.length) {
-    return res.status(400).json({ error: "Invalid index" });
+  if (!id || typeof id !== 'string') {
+    return res.status(400).json({ error: "Invalid id" });
   }
 
-  //database.splice(index, 1);
-  const cropToRemove = crops[index];
-  await ShopCrop.deleteOne({_id: cropToRemove._id});
+  await ShopCrop.deleteOne({ _id: id });
   lastUpdated = new Date();
 
   res.sendStatus(200);

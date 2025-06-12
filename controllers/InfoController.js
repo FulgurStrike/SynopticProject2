@@ -1,5 +1,3 @@
-// controllers/InfoController.js
-
 const infoPageData = {
     title: "About Us",
 };
